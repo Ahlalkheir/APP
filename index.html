@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة مشرفات الكفالة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .supervisor-title {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+    #announcementText {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+#announcementList > div {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+}
+
+        body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* الخلفية المتحركة */
+    body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://i.postimg.cc/qBDG2sPG/Whats-App-Image-2025-06-16-at-17-38-27-6c039e71.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -2; /* نغير الزد اندكس */
+  animation: moveBackground 30s infinite alternate ease-in-out;
+}
+
+  @keyframes moveBackground {
+  0%   { background-position: center center; }
+  25%  { background-position: top right; }
+  50%  { background-position: center left; }
+  75%  { background-position: bottom right; }
+  100% { background-position: center center; }
+}
+    /* شاشة اللودينق */
+#loaderScreen {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* دائرة متوهجة حول الشعار */
+.loader-border {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  padding: 10px;
+  background: conic-gradient(#004d26, #27ae60, #004d26);
+  animation: spin 2s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-border img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  background: white;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+  .project-uploader {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 40px auto;
+    direction: rtl; /* عشان الكتابة من اليمين */
+  }
+
+  .project-uploader h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .project-uploader input[type="text"],
+  .project-uploader input[type="file"] {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: white;
+  }
+
+  .project-uploader input[type="color"] {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .project-uploader button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #6c63ff, #4e4cbf);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .project-uploader button:hover {
+    background: linear-gradient(to right, #574feb, #3f3cc5);
+    transform: translateY(-1px);
+  }
+    .login-box button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #004d26;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  transform: scale(1.03);
+  background-color: #006b38;
+}
+
+    .supervisor-boxes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.supervisor-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a8e6cf, #56ab91);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s;
+  color: white;
+}
+
+.supervisor-circle:hover {
+  transform: scale(1.05);
+}
+
+.supervisor-circle h4 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.supervisor-circle p {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.supervisor-circle button {
+  background: white;
+  color: #004d26;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+    .form-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-right: 6px solid #009688;
+  transition: transform 0.2s;
+}
+
+.form-card:hover {
+  transform: scale(1.01);
+}
+
+.form-card h3 {
+  margin-bottom: 10px;
+  color: #00695c;
+}
+
+.form-card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(to bottom, #e0ffe6, #a8e6cf);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004d26;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-box {
+  background: rgba(255, 255, 255, 0.12); /* شفافية خفيفة */
+  backdrop-filter: blur(12px); /* ضبابية خلف البوكس */
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+}
+
+
+    .login-box input, .login-box select, .login-box button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .supervisor-panel {
+      display: none;
+      padding: 20px;
+    }
+
+    button {
+      background-color: #004d26;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #cce8d8;
+    }
+
+  </style>
+</head>
+<body>
+  
+<div id="loaderScreen">
+  <div class="loader-border">
+    <img src="https://i.postimg.cc/qBDG2sPG/Whats-App-Image-2025-06-16-at-17-38-27-6c039e71.jpg" alt="شعار المنظمة">
+  </div>
+</div>
+
+<div id="mediaSection" style="display: none; padding: 20px;">
+  <h3>📢 إضافة إعلان</h3>
+  <textarea id="announcementText" placeholder="اكتب الإعلان هنا..." style="width:100%; height:100px;"></textarea>
+  <br>
+  <button onclick="addAnnouncement()">➕ إضافة إعلان</button>
+
+  <h3 style="margin-top:30px;">📃 الإعلانات الحالية</h3>
+  <div id="announcementList"></div>
+<div class="project-uploader">
+  <h2> إضافة مشروع جديد</h2>
+<input type="text" id="projIntro" placeholder="اكتب انترو عن المشروع" oninput="previewProject()">
+  <input type="text" id="projName" placeholder="اسم المشروع" oninput="previewProject()">
+  <input type="color" id="projColor" value="#8e44ad" onchange="previewProject()">
+  <label for="projImage" style="display:inline-block; padding: 5px 220px; background:#27ae60; color:white; border-radius:8px; cursor:pointer; font-weight:bold;">
+     رفع صورة
+  </label>
+
+  <input type="file" id="projImage" accept="image/*" style="display: none;" onchange="previewImage(event)">
+  <button onclick="uploadProject()"> رفع المشروع</button>
+
+  <!-- معاينة المشروع بعد الإرسال -->
+  <div id="projectPreview" class="form-card" style="margin-top: 25px; display: none;">
+    <h3 id="previewTitle">اسم المشروع</h3>
+    <div style="width: 100%; height: 200px; border-radius: 12px; overflow: hidden; background: #eee; margin-bottom: 15px;">
+      <img id="previewImg" src="" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div style="display:flex; gap:10px; justify-content:center;">
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="loginSection" class="login-container">
+  <div class="login-box">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button onclick="login()">دخول</button>
+    <button onclick="openMediaSection()">قسم الإعلام</button>
+<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfzoYCJyEQF8QidBBC0aSEfkAvXlx144FjeQ8Md1R1jH0-n-g/viewform?usp=header', '_blank')">
+     مشرفة الحرف
+  </button>
+
+  </div>
+</div>
+<div id="superFormSection" style="display: none; padding: 20px;">
+  <h3>📝 تسجيل مشرفة جديدة</h3>
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSfzoYCJyEQF8QidBBC0aSEfkAvXlx144FjeQ8Md1R1jH0-n-g/viewform?embedded=true" 
+    width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">جارٍ تحميل النموذج…</iframe>
+  <br><br>
+  <button onclick="backToLogin()">🔙 رجوع</button>
+</div>
+
+<div id="supervisorPanel" class="supervisor-panel">
+<h2 id="supervisorWelcome" class="supervisor-title">أهلاً بكِ يا مشرفة</h2>
+
+  <div id="formsContainer">⏳ جاري تحميل الاستمارات...</div>
+<h3 id="supervisorBoxesTitle" class="supervisor-title" style="display:none; text-align:center; margin-top: 30px;">👩‍💼 مشرفاتي</h3>
+
+<div id="supervisorSelection" class="supervisor-boxes" style="display: none;">
+
+  <!-- زر تعديل بيانات الدخول -->
+  <button onclick="toggleEditSection()" style="background:#FFA500; margin-top: 20px;">🛠 تعديل بيانات الدخول</button>
+
+  <!-- نموذج تعديل البيانات -->
+  <div id="editSection" style="display:none; margin-top: 20px;">
+    <h3>🔐 تعديل بيانات الدخول</h3>
+    <input type="text" id="newUsername" placeholder="اسم المستخدم الجديد">
+    <input type="password" id="newPassword" placeholder="كلمة المرور الجديدة">
+    <button onclick="updateCredentials()">تحديث البيانات</button>
+  </div>
+
+  <!-- زر تسجيل الخروج -->
+  <button onclick="logout()" style="margin-top: 30px;">🚪 تسجيل خروج</button>
+</div>
+
+<script>
+  function previewImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById("previewImg").src = e.target.result;
+    document.getElementById("projectPreview").style.display = "block";
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewProject() {
+  const name = document.getElementById("projName").value;
+  const color = document.getElementById("projColor").value;
+const intro = document.getElementById("projIntro").value;
+document.getElementById("previewIntro").textContent = intro || "مقدمة المشروع ستظهر هنا";
+
+  document.getElementById("previewName").textContent = name || "اسم المشروع";
+  document.getElementById("projectPreview").querySelector("div").style.backgroundColor = color;
+}
+
+  const projectScriptURL = "https://script.google.com/macros/s/AKfycbxudoBmW5CK8hKMSM46gUaxzqzqMJCpFYh_6s6pV6wGQvtyT3x5glOyHNGaJ1_Qx3bG/exec";
+
+  function uploadProject() {
+    const name = document.getElementById("projName").value;
+    const color = document.getElementById("projColor").value;
+    const imageInput = document.getElementById("projImage").files[0];
+const intro = document.getElementById("projIntro").value;
+
+    if (!name) return alert("يرجى إدخال اسم المشروع");
+
+    if (imageInput) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const base64Image = event.target.result;
+
+        sendToSheet(name, color, base64Image, intro);
+      };
+      reader.readAsDataURL(imageInput);
+    } else {
+      sendToSheet(name, color, "");
+    }
+  }
+
+ function sendToSheet(name, color, imageBase64, intro) {
+  fetch(projectScriptURL, {
+    method: 'POST',
+    body: JSON.stringify({ name, color, imageBase64, intro })
+  })
+  .then(res => res.text())
+  .then(msg => {
+    alert("✅ تم رفع المشروع");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("❌ حصل خطأ أثناء رفع المشروع");
+  });
+}
+
+function openMediaSection() {
+  document.getElementById("loginSection").style.display = "none";
+  document.getElementById("mediaSection").style.display = "block";
+}
+
+  function openMediaSection() {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("mediaSection").style.display = "block";
+  }
+
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwbSdqbgWq98xPfpxhvfsBf22v-QXxv120ODTAM0ha5J1oLmxAb8OEv5YLsT36i0EEtdg/exec";
+
+  function loadAnnouncements() {
+    fetch(scriptURL)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("announcementList");
+        if (!data.length) return container.innerHTML = "<p>لا توجد إعلانات حالياً.</p>";
+        container.innerHTML = data.map(item => `
+          <div style="background:#d4f5dc; padding:10px; margin:10px 0; border-radius:8px;">
+            📝 ${item.text}
+            <button onclick="deleteAnnouncement('${item.id}')" 
+              style="float:left; background:red; color:white; border:none; margin-left:5px;">🗑 حذف</button>
+            <button onclick="editAnnouncement('${item.id}', '${item.text.replace(/'/g, "\\'")}')" 
+              style="float:left; background:#ffa500; color:white; border:none;">✏️ تعديل</button>
+          </div>
+        `).join("");
+      });
+  }
+
+  function addAnnouncement() {
+    const text = document.getElementById("announcementText").value.trim();
+    if (!text) return alert("اكتب نص الإعلان");
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify({ action: "add", text })
+    }).then(() => {
+      document.getElementById("announcementText").value = "";
+      loadAnnouncements();
+    });
+  }
+
+  function deleteAnnouncement(id) {
+    if (!confirm("هل أنت متأكد من الحذف؟")) return;
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify({ action: "delete", id })
+    }).then(() => loadAnnouncements());
+  }
+
+  function editAnnouncement(id, oldText) {
+    const newText = prompt("اكتب الإعلان الجديد:", oldText);
+    if (!newText) return;
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify({ action: "edit", id, text: newText })
+    }).then(() => loadAnnouncements());
+  }
+
+  loadAnnouncements();
+
+  function toggleEditSection() {
+    const section = document.getElementById("editSection");
+    section.style.display = section.style.display === "none" ? "block" : "none";
+  }
+let supervisorsReady = false;
+const supervisors = {
+  "madihah": { password: "1111", letter: "ا", gender: "نساء" },
+  "fai":     { password: "5555", letter: "ا", gender: "رجال" },
+  "hadeel":  { password: "4444", letter: "ب", gender: "نساء" },
+  "samar":   { password: "2222", letter: "all", gender: "all" },
+  "lamya":   { password: "3333", letter: "all", gender: "all" }
+};
+// ✅ إضافة المشرفات من الشيت تلقائياً
+fetch("https://script.google.com/macros/s/AKfycbzddREf-jyHHjpktK0pJXh2UZPxkXe_fTAXCjTm_Aa2vsU7yUCfOwFHgvZCehaq_BtD_w/exec")
+  .then(res => res.json())
+  .then(data => {
+    const cleaned = data.map(row => {
+      const cleanedRow = {};
+      Object.entries(row).forEach(([key, val]) => {
+        const cleanKey = key.toString().trim().replace(/\s+/g, '').toLowerCase();
+        cleanedRow[cleanKey] = val ? val.toString().trim() : '';
+      });
+      return cleanedRow;
+    });
+
+cleaned.forEach(user => {
+  const username = user['اسمالمستخدم'];
+  const password = user['كلمتالسر'];
+  const rawLetters = user['الحرفالمشرفهعليه'] || 'all';
+  const letterArray = rawLetters.split(/[,،]/).map(l => l.trim());
+
+  const genderArray = (user['مشرفهعلى'] || 'all').split(/[,،]/).map(g => g.trim());
+
+  if (username && password) {
+    supervisors[username.toLowerCase()] = { password, letter: letterArray, gender: genderArray };
+  }
+});
+
+
+    // ✅ انتهى تحميل المشرفات من Google Form Sheet
+    supervisorsReady = true;
+    // ⬇️ توليد دوائر المشرفات داخل صفحة سمر ولمياء
+const container = document.getElementById("supervisorSelection");
+container.innerHTML = ""; // مسح القديم
+
+Object.entries(supervisors).forEach(([user, info]) => {
+  if (user === "samar" || user === "lamya") return; // ما نضيفهم نفسهم
+
+  const label = `حرف ${info.letter} (${info.gender})`;
+  const capitalized = user.charAt(0).toUpperCase() + user.slice(1);
+
+  const div = document.createElement("div");
+  div.className = "supervisor-circle";
+  div.innerHTML = `
+    <h4>${capitalized}</h4>
+    <p>${label}</p>
+    <button onclick="showSupervisorForms('${user}')">📂 معاينة الاستمارات</button>
+  `;
+  container.appendChild(div);
+});
+
+  });
+
+
+function login() {
+  const user = document.getElementById("username").value.trim().toLowerCase();
+  const pass = document.getElementById("password").value.trim();
+
+  // ✅ بعد كده الإعلام
+  if (user === "media" && pass === "123") {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("mediaSection").style.display = "block";
+    return;
+  }
+
+  // ✅ وأخيرًا تحقق من قائمة المشرفات
+  if (supervisors[user] && supervisors[user].password === pass) {
+    const { letter, gender } = supervisors[user];
+
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("supervisorPanel").style.display = "block";
+
+    if (user === "samar" || user === "lamya") {
+      document.getElementById("formsContainer").innerHTML = "";
+      document.getElementById("supervisorBoxesTitle").style.display = "block";
+      document.getElementById("supervisorSelection").style.display = "flex";
+      document.getElementById("supervisorWelcome").textContent = "مشرفة عامة";
+    } else {
+      document.getElementById("supervisorBoxesTitle").style.display = "none";
+      document.getElementById("supervisorSelection").style.display = "none";
+      document.getElementById("formsContainer").style.display = "block";
+      document.getElementById("supervisorWelcome").textContent =
+        `مشرفة حرف ${letter} (${gender})`;
+      loadForms(letter, gender);
+    }
+    return;
+  }
+
+  // ❌ لو ما تحقق أي شرط فوق
+  alert("اسم المستخدم أو كلمة المرور غير صحيحة");
+}
+
+
+function showSupervisorPanel(username) {
+  alert("✅ تسجيل دخول ناجح!");
+  document.getElementById("loginSection").style.display = "none";
+  document.getElementById("supervisorPanel").style.display = "block";
+  document.getElementById("supervisorWelcome").textContent = `أهلاً بكِ ${username}`;
+}
+
+  function logout() {
+    document.getElementById("loginSection").style.display = "flex";
+    document.getElementById("supervisorPanel").style.display = "none";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+  }
+
+function loadForms(letter, gender) {
+  const container = document.getElementById("formsContainer");
+  container.innerHTML = "⏳ جاري تحميل البيانات...";
+
+  fetch("https://script.google.com/macros/s/AKfycbz9Pt1q5nerkAHEqL_6pcuaftOY7KmgmgceHyFlzN0Hz4Kf0kUEdR1SK2HkE8aMPuo/exec")
+    .then(res => res.json())
+    .then(data => {
+  const filtered = (letter === "all")
+  ? data
+  : data.filter(item => {
+      const name = (item['اسم الكفيل'] || "").trim();
+      const firstLetter = name.normalize("NFD").replace(/[\u064B-\u065F\s]/g, "").charAt(0);
+      const genderValue = (item['الجنس'] || "").trim().replace("أنثى", "نساء").replace("انثى", "نساء");
+
+      return letter.includes(firstLetter) && gender.includes(genderValue);
+
+  });
+
+
+      if (filtered.length === 0) {
+        container.innerHTML = "<p>لا توجد استمارات مطابقة.</p>";
+        return;
+      }
+
+      container.innerHTML = filtered.map((item, i) => {
+        const fields = Object.entries(item).map(([key, value]) => {
+          if (key === 'Timestamp' || key === 'اسم الكفيل') return '';
+          const label = key.replace(' (اختياري)', '').trim();
+
+          // ✅ تنسيق التاريخ بشكل مضبوط
+          if (key === 'تاريخ الانضمام' && value) {
+            let formattedDate = value;
+            try {
+              const parsedDate = new Date(value);
+              if (!isNaN(parsedDate.getTime())) {
+                const day = String(parsedDate.getDate()).padStart(2, '0');
+                const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
+                const year = parsedDate.getFullYear();
+                formattedDate = `${day}/${month}/${year}`;
+              }
+            } catch (e) {
+              // لو فشل التحويل، نعرض التاريخ زي ما هو
+            }
+
+            return `<p style="background: #f9f9f9; padding: 5px 10px; border-radius: 6px;">
+                      • <strong>${label}:</strong> ${formattedDate}
+                    </p>`;
+          }
+
+          return `<p>• <strong>${label}:</strong> ${value || '—'}</p>`;
+        }).join("");
+
+        return `
+          <div class="form-card">
+            <p><strong>${i + 1} - ${item['اسم الكفيل'] || '—'}</strong></p>
+            ${fields}
+          </div>
+        `;
+      }).join("");
+
+    })
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = "<p>حدث خطأ أثناء تحميل البيانات.</p>";
+    });
+}
+function showSupervisorForms(username) {
+  const { letter, gender } = supervisors[username];
+
+  document.getElementById("supervisorSelection").style.display = "none";
+  document.getElementById("supervisorBoxesTitle").style.display = "none";
+  document.getElementById("formsContainer").style.display = "block";
+
+  // لو عندها أكثر من حرف، نمرر المصفوفة كما هي
+  loadForms(Array.isArray(letter) ? letter : [letter], gender);
+}
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const loader = document.getElementById("loaderScreen");
+    if (loader) loader.style.display = "none";
+  }, 2000); // 2 ثانية انتظار (اختياري)
+});
+
+
+
+</script>
+
+</body>
+</html>
