@@ -1,0 +1,21 @@
+{
+  "name": "منظمت اهل الخير النسويه AHL ALKHEIR",
+  "short_name": "أهل الخير",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#009688",
+  "description": "اب المنظمه",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/NFzJD0wR/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/wT1bvDh2/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
